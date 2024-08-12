@@ -1,6 +1,6 @@
 import Foundation
 
-// MARK: - Structures de Données
+ 
 
 struct Etudiant {
     var id: Int
@@ -16,30 +16,29 @@ struct Transaction {
     var description: String
 }
 
-// MARK: - Variables Globales
+ 
 
-// Gestion des étudiants
-var etudiants: [Etudiant] = []
-var prochainID: Int = 1
+ 
+ var etudiants: [Etudiant] = []
+ var prochainID: Int = 1
 
 // Montant total des frais scolaires
 let montantTotalFrais: Double = 2000.0
-
-// MARK: - Fonctions Utilitaires
-
+ 
+ 
 func afficherSeparator() {
     print("\n" + String(repeating: "-", count: 40) + "\n")
 }
 
-// MARK: - Fonctions de Gestion des Étudiants
+// MARK: - Fonctions de Gestion des Etudiants
 
 func ajouterEtudiant() {
-    print("Entrez le nom de l'étudiant : ", terminator: "")
+    print("Entrez le nom de l'etudiant : ", terminator: "")
     let nom = readLine() ?? ""
-    print("Entrez le prénom de l'étudiant : ", terminator: "")
+    print("Entrez le prenom de l'etudiant : ", terminator: "")
     let prenom = readLine() ?? ""
 
-    let matieres = ["Mathématiques", "Physique", "Chimie"]
+    let matieres = ["Mathematiques", "Physique", "Chimie"]
     var notes: [String: Double] = [:]
 
     for matiere in matieres {
@@ -57,7 +56,7 @@ func ajouterEtudiant() {
     let etudiant = Etudiant(id: prochainID, nom: nom, prenom: prenom, notes: notes, paiements: [])
     etudiants.append(etudiant)
     prochainID += 1
-    print("Étudiant ajouté avec succès !")
+    print("Etudiant ajoute avec succes !")
     afficherSeparator()
 }
 
@@ -89,7 +88,7 @@ func calculerMoyenne() {
     afficherSeparator()
 }
 
-// MARK: - Fonctions de Gestion de l'Économat
+//   - Fonctions de Gestion de l'Économat
 
 func ajouterPaiement() {
     let dateFormatter = DateFormatter()
@@ -199,7 +198,11 @@ func afficherMenuEtudiants() {
         3. Calculer la moyenne des notes par étudiant
         4. Retour
         """)
+        print("")
+         
+          print("................................................")
         print("Choisissez une option : ", terminator: "")
+       
         if let choix = readLine(), let option = Int(choix) {
             switch option {
             case 1:
@@ -226,8 +229,11 @@ func afficherMenuEconomat() {
         2. Lister les paiements de frais scolaires pour un étudiant
         3. Calculer le solde des frais scolaires pour un étudiant
         4. Retour
-        """)
-        print("Choisissez une option : ", terminator: "")
+        """) 
+           print("")
+         
+          print("................................................")
+        print("Choisissez une option : ", terminator: "") 
         if let choix = readLine(), let option = Int(choix) {
             switch option {
             case 1:
@@ -247,12 +253,15 @@ func afficherMenuEconomat() {
     }
 }
 
-// MARK: - Fonction Principale
+//  - Fonction Principale
 
 func main() {
     while true {
         afficherMenu()
-        print("Choisissez une option : ", terminator: "")
+           print("")
+         
+          print("................................................")
+        print("Choisissez une option : ", terminator: "") 
         if let choix = readLine(), let option = Int(choix) {
             switch option {
             case 1:
