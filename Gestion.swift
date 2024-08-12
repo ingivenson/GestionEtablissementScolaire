@@ -1,7 +1,5 @@
 import Foundation
 
- 
-
 struct Etudiant {
     var id: Int
     var nom: String
@@ -16,16 +14,12 @@ struct Transaction {
     var description: String
 }
 
- 
-
- 
- var etudiants: [Etudiant] = []
- var prochainID: Int = 1
+var etudiants: [Etudiant] = []
+var prochainID: Int = 1
 
 // Montant total des frais scolaires
 let montantTotalFrais: Double = 2000.0
- 
- 
+
 func afficherSeparator() {
     print("\n" + String(repeating: "-", count: 40) + "\n")
 }
@@ -88,7 +82,7 @@ func calculerMoyenne() {
     afficherSeparator()
 }
 
-//   - Fonctions de Gestion de l'Économat
+// MARK: - Fonctions de Gestion de l'Économat
 
 func ajouterPaiement() {
     let dateFormatter = DateFormatter()
@@ -180,6 +174,30 @@ func calculerSolde() {
     afficherSeparator()
 }
 
+func listerToutesTransactions() {
+    if etudiants.isEmpty {
+        print("Aucun étudiant enregistré.")
+        afficherSeparator()
+        return
+    }
+
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+
+    for etudiant in etudiants {
+        if etudiant.paiements.isEmpty {
+            print("Aucun paiement enregistré pour l'étudiant \(etudiant.nom) \(etudiant.prenom) (ID \(etudiant.id)).")
+        } else {
+            print("Liste des paiements pour l'étudiant \(etudiant.nom) \(etudiant.prenom) (ID \(etudiant.id)) :")
+            for paiement in etudiant.paiements {
+                let dateStr = dateFormatter.string(from: paiement.date)
+                print("  Date: \(dateStr), Montant: \(paiement.montant), Description: \(paiement.description)")
+            }
+        }
+        afficherSeparator()
+    }
+}
+
 // MARK: - Fonction d'Affichage du Menu
 
 func afficherMenu() {
@@ -199,10 +217,9 @@ func afficherMenuEtudiants() {
         4. Retour
         """)
         print("")
-         
-          print("................................................")
+        print("................................................")
         print("Choisissez une option : ", terminator: "")
-       
+
         if let choix = readLine(), let option = Int(choix) {
             switch option {
             case 1:
@@ -228,12 +245,13 @@ func afficherMenuEconomat() {
         1. Ajouter un paiement de frais scolaires
         2. Lister les paiements de frais scolaires pour un étudiant
         3. Calculer le solde des frais scolaires pour un étudiant
-        4. Retour
-        """) 
-           print("")
-         
-          print("................................................")
-        print("Choisissez une option : ", terminator: "") 
+        4. Lister toutes les transactions
+        5. Retour
+        """)
+        print("")
+        print("................................................")
+        print("Choisissez une option : ", terminator: "")
+
         if let choix = readLine(), let option = Int(choix) {
             switch option {
             case 1:
@@ -243,6 +261,8 @@ func afficherMenuEconomat() {
             case 3:
                 calculerSolde()
             case 4:
+                listerToutesTransactions()
+            case 5:
                 return
             default:
                 print("Option invalide, veuillez réessayer.")
@@ -253,32 +273,26 @@ func afficherMenuEconomat() {
     }
 }
 
-//  - Fonction Principale
+// MARK: - Main
+while true {
+    afficherMenu()
+    print("")
+    print("................................................")
+    print("Choisissez une option : ", terminator: "")
 
-func main() {
-    while true {
-        afficherMenu()
-           print("")
-         
-          print("................................................")
-        print("Choisissez une option : ", terminator: "") 
-        if let choix = readLine(), let option = Int(choix) {
-            switch option {
-            case 1:
-                afficherMenuEtudiants()
-            case 2:
-                afficherMenuEconomat()
-            case 3:
-                print("Au revoir!")
-                return
-            default:
-                print("Option invalide, veuillez réessayer.")
-            }
-        } else {
-            print("Entrée invalide, veuillez réessayer.")
+    if let choix = readLine(), let option = Int(choix) {
+        switch option {
+        case 1:
+            afficherMenuEtudiants()
+        case 2:
+            afficherMenuEconomat()
+        case 3:
+            print("Au revoir!")
+            exit(0)
+        default:
+            print("Option invalide, veuillez réessayer.")
         }
+    } else {
+        print("Entrée invalide, veuillez réessayer.")
     }
 }
-
-// Lancement du programme
-main()
